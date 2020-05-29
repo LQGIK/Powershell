@@ -33,6 +33,9 @@
 
 $users = getUsers;
 
+# Additionally cuz I'm an absolute idiot, you could just do this
+net users >> $usernames;
+
 
 
 
