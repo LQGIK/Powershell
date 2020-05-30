@@ -38,7 +38,7 @@ function getUsers {
 
 # Clean out files in C:\Windows\Temp\
 $win_Temp_Path = "C:\Windows\Temp\*";
-if (Test-Path $winTemp){
+if (Test-Path $win_Temp_Path){
     Remove-Item -path $win_Temp_Path -recurse -force;
 }
 
