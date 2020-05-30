@@ -1,5 +1,5 @@
 ﻿# Retrieves users and deletes all files in TEMP directories
-
+# Execute via .\cleanTmp.ps1
 
 function getUsers {
 
@@ -38,6 +38,7 @@ function getUsers {
 
 # Clean out files in C:\Windows\Temp\
 $win_Temp_Path = "C:\Windows\Temp\*";
+$win_Temp_Path;
 if (Test-Path $win_Temp_Path){
     Remove-Item -path $win_Temp_Path -recurse -force;
 }
@@ -47,14 +48,27 @@ if (Test-Path $win_Temp_Path){
 $users = getUsers;
 $numUsers = $users.Count;
 
-# Iterate user temp folders
-for ($i=0; $i -lt $numUsers; $i++){
-    
-    $user_Temp_Path = "C:\Users\" + $users[$i] + "\AppData\Local\Temp\*";
+
+# Use users if we only have one item
+if ($numUsers -eq 1){
+    $user_Temp_Path = "C:\Users\" + $users + "\AppData\Local\Temp\*";
+    $user_Temp_Path;
     if (Test-Path $user_Temp_Path){
         Remove-Item -path $user_Temp_Path -recurse -force;
     }
+}
 
+# If we have more than one user, iterate through
+else {
 
+    # Iterate user temp folders
+    for ($i=0; $i -lt $numUsers; $i++){
+    
+        $user_Temp_Path = "C:\Users\" + $users[$i] + "\AppData\Local\Temp\*";
+        $user_Temp_Path;
+        if (Test-Path $user_Temp_Path){
+            Remove-Item -path $user_Temp_Path -recurse -force;
+        }
+    }
 }
 
